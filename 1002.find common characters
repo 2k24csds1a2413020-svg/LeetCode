@@ -1,0 +1,31 @@
+import java.util.*;
+
+public class Solution {
+    public static List<String> commonChars(String[] w) {
+        int[] minC = new int[26];
+        Arrays.fill(minC, Integer.MAX_VALUE);
+
+        for (String s : w) {
+            int[] cnt = new int[26];
+            for (char c : s.toCharArray()) {
+                cnt[c - 'a']++;
+            }
+            for (int i = 0; i < 26; i++) {
+                minC[i] = Math.min(minC[i], cnt[i]);
+            }
+        }
+
+        List<String> res = new ArrayList<>();
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < minC[i]; j++) {
+                res.add(String.valueOf((char) (i + 'a')));
+            }
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        String[] words1 = {"bella", "label", "roller"};
+        System.out.println(commonChars(words1));  // Output: [e, l, l]
+    }
+}
